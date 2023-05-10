@@ -36,10 +36,11 @@
 }
 
 .characterInfoListWrapper {
+    width: 150px;
     list-style-type: none;
     text-align: left;
     background-color: saddlebrown;
-    margin: 5px;
+    margin: 1px;
     border-style: solid;
     border-color: #282c34;
     border-width: 5px;

@@ -1,4 +1,5 @@
 import React from 'react';
+import * as string_decoder from "string_decoder";
 type Props = {
     character:character
 }
@@ -9,6 +10,11 @@ type character = {
     species:string
     gender:string
     image:string
+    origin:Origin
+}
+type Origin = {
+    name:string
+
 }
 function CharacterCard(props:Props) {
     return (
@@ -24,6 +30,7 @@ function CharacterCard(props:Props) {
                         <li> {"Status: " + props.character.status } </li>
                         <li> {"Species: " + props.character.species } </li>
                         <li> {"Gender: " + props.character.gender } </li>
+                        <li> {"Origin: " + props.character.origin.name } </li>
                     </ul>
                 </div>
 
