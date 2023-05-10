@@ -12,7 +12,13 @@
     text-align: center;
     position: absolute;
 }
+.alive{
+    color: green;
+}
 
+.dead{
+    color: red;
+}
 .characterCardWrapper {
     width: 400px;
     height: 300px;

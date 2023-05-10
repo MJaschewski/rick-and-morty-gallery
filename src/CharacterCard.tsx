@@ -19,7 +19,7 @@ type Origin = {
 function CharacterCard(props:Props) {
     return (
         <div className="characterCardWrapper">
-            <header className="tilteWrapper"> <h1>{props.character.name}</h1> </header>
+            <header > <h1 className={props.character.status === "Alive" ? "alive" : "dead"}>{props.character.name}</h1> </header>
 
             <div className="CharacterCardBodyWrapper">
 
