@@ -1,9 +1,9 @@
 import React from 'react';
-import * as string_decoder from "string_decoder";
+import './style.css';
 type Props = {
-    character:character
+    character:Character
 }
-type character = {
+type Character = {
     id:number
     name:string
     status:string
