@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './style.css';
 import './App.css';
 import CharacterGallery from "./CharacterGallery";
@@ -1130,11 +1130,77 @@ const characters = [
     }
 ]
 
+type Character = {
+    id:number
+    name:string
+    status:string
+    species:string
+    gender:string
+    image:string
+    origin:Origin
+}
+type Origin = {
+    name:string
+
+}
+
 function App() {
+
+    const [nameFilter,setNameFilter] = useState("")
+
+    const [statusFilter,setStatusFilter] = useState("");
+
+    function searchFilterInput(event:React.FocusEvent<HTMLInputElement>){
+        setNameFilter(event.currentTarget.value);
+    }
+
+    function filterStatus(chars:Character[]){
+
+        if(statusFilter !== ""){
+            return chars.filter(charsFiltered => {
+                if(charsFiltered.status === statusFilter)
+                    return charsFiltered;
+            })
+        } else {
+            return chars;
+        }
+    }
+
+    function filterName(){
+        return characters.filter(charsFiltered => {
+            if (charsFiltered.name.includes(nameFilter)) {
+                return charsFiltered;
+            }
+        });
+    }
 
   return (
     <div className="App">
-        <CharacterGallery characters={characters}/>
+        <header className="TitleWrapper"> <h1> Rick And Morty Character Gallery </h1> </header>
+
+        <div className="FilterWrapper">
+            <div>
+                <h3>Search by Name:</h3>
+                <input type={"search"} value={nameFilter}
+                       onInput={searchFilterInput} />
+            </div>
+            <div>
+                <h3>Filter by Status:</h3>
+                <button onClick={()=> setStatusFilter("")}> All </button>
+                <button onClick={()=> setStatusFilter("Alive")}> ALive </button>
+                <button onClick={()=> setStatusFilter("Dead")}> Dead </button>
+                <button onClick={()=> setStatusFilter("unknown")}> Unknown </button>
+
+            </div>
+
+        </div>
+
+        <div>{
+            (nameFilter === "" && statusFilter === "")
+                    ? <CharacterGallery characters={characters}/>
+                    : <CharacterGallery characters={filterStatus(filterName())}/>
+            }
+        </div>
     </div>
   );
 }
