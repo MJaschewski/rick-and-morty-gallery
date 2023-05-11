@@ -1183,6 +1183,11 @@ function App() {
                 <h3>Search by Name:</h3>
                 <input type={"search"} value={nameFilter}
                        onInput={searchFilterInput} />
+                {/*
+                As one liner
+                <input placeholder={"Search..."} onChange={event => setNameFilter(event.target.value)} />
+                */}
+
             </div>
             <div>
                 <h3>Filter by Status:</h3>
