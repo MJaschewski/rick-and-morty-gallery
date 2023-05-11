@@ -1,8 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './style.css';
 import './App.css';
 import CharacterGallery from "./CharacterGallery";
-
+import axios from "axios";
+import {Character} from "./Character";
+// Careful: NOT axios/index
+/*
 const characters = [
     {
         "id": 1,
@@ -1129,22 +1132,38 @@ const characters = [
         "created": "2017-11-05T10:02:26.701Z"
     }
 ]
+*/
 
-type Character = {
-    id:number
-    name:string
-    status:string
-    species:string
-    gender:string
-    image:string
-    origin:Origin
-}
-type Origin = {
-    name:string
-
-}
 
 function App() {
+
+    const [page,setPage]=useState(1)
+
+    const [characters,setCharacters] = useState<Character[]>([]);
+
+
+    useEffect(() => {
+        //Asymmetric call. Order not save
+        // only does then, when get is finished. Continues with the rest before
+        console.log("Data requesting")
+        axios.get("https://rickandmortyapi.com/api/character/?page="+page)
+            .then( (response) => {
+                setCharacters(response.data.results)
+                console.log("Data obtained")
+            })
+        //IMPORTANT: OTHERWISE ENDLESS LOPE
+        }, [page])
+
+    function turnPage(){
+        setPage(page + 1);
+
+    }
+
+    function turnBack(){
+        setPage(page - 1);
+    }
+
+
 
     const [nameFilter,setNameFilter] = useState("")
 
@@ -1175,11 +1194,29 @@ function App() {
         });
     }
 
+
+
   return (
     <div className="App">
         <header className="TitleWrapper"> <h1> Rick And Morty Character Gallery </h1> </header>
 
         <div className="FilterWrapper">
+
+            <div>
+                <h3> Current Page: {page}</h3>
+                <div>
+                    <button onClick={() => turnPage()} >Next Page</button>
+                </div>
+
+                <div>
+                    {page !== 1
+                        ? <button onClick={() => turnBack()} >Last Page</button>
+                        : <p> First Page</p>
+                    }
+                </div>
+            </div>
+
+
             <div>
                 <h3>Search by Name:</h3>
                 <input type={"search"} value={nameFilter}
