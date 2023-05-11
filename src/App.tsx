@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './style.css';
 import './App.css';
 import CharacterGallery from "./CharacterGallery";
@@ -1150,8 +1150,9 @@ function App() {
 
     const [statusFilter,setStatusFilter] = useState("");
 
-    function searchFilterInput(event:React.FocusEvent<HTMLInputElement>){
-        setNameFilter(event.currentTarget.value);
+    function searchFilterInput(event:ChangeEvent<HTMLInputElement>){
+        console.log(event)
+        setNameFilter(event.target.value);
     }
 
     function filterStatus(chars:Character[]){
@@ -1168,7 +1169,7 @@ function App() {
 
     function filterName(){
         return characters.filter(charsFiltered => {
-            if (charsFiltered.name.includes(nameFilter)) {
+            if (charsFiltered.name.toLowerCase().includes(nameFilter.toLowerCase())) {
                 return charsFiltered;
             }
         });
