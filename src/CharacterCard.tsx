@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import {Link, useNavigate} from "react-router-dom";
 type Props = {
     character:Character
 }
@@ -17,6 +18,13 @@ type Origin = {
 
 }
 function CharacterCard(props:Props) {
+
+    const navigate = useNavigate();
+
+    function onClickHandlerForDetails(){
+        navigate("/"+ props.character.name)
+    }
+
     return (
         <div className="characterCardWrapper">
             <header > <h1 className={props.character.status === "Alive" ? "alive" : "dead"}>{props.character.name}</h1> </header>
@@ -38,6 +46,10 @@ function CharacterCard(props:Props) {
                     <img className="characterImageWrapper" src={props.character.image} alt={"Character Image" + props.character.name} />
                 </div>
 
+            </div>
+            <div>
+                <button onClick={onClickHandlerForDetails}>Details </button>
+                <Link to={"/"}>back</Link>
             </div>
 
         </div>
