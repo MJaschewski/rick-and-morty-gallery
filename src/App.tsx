@@ -6,7 +6,6 @@ import axios from "axios";
 import {Character} from "./Character";
 import {Route, Routes} from "react-router-dom";
 import CharacterDetails from "./CharacterDetails";
-import characterDetails from "./CharacterDetails";
 // Careful: NOT axios/index
 
 function App() {
