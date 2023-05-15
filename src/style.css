@@ -5,6 +5,11 @@
     align-items: center;
 }
 
+.MainPageWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .TitleWrapper{
     background-color: sandybrown;
     border-style: solid;

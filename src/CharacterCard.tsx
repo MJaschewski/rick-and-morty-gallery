@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 type Props = {
     character:Character
 }
@@ -20,9 +20,8 @@ type Origin = {
 function CharacterCard(props:Props) {
 
     const navigate = useNavigate();
-
     function onClickHandlerForDetails(){
-        navigate("/"+ props.character.name)
+        navigate("/"+ props.character.id.toString())
     }
 
     return (
@@ -48,8 +47,10 @@ function CharacterCard(props:Props) {
 
             </div>
             <div>
-                <button onClick={onClickHandlerForDetails}>Details </button>
-                <Link to={"/"}>back</Link>
+                <Link to={"/"}> Back </Link>
+                <button onClick={onClickHandlerForDetails}> Details </button>
+
+
             </div>
 
         </div>

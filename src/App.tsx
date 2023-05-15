@@ -12,19 +12,22 @@ import characterDetails from "./CharacterDetails";
 function App() {
 
     const [page,setPage]=useState(1)
-
     const [characters,setCharacters] = useState<Character[]>([]);
 
-
-    useEffect(() => {
-        //Asymmetric call. Order not save
-        // only does then, when get is finished. Continues with the rest before
+    function getCharacters(){
         console.log("Data requesting")
         axios.get("https://rickandmortyapi.com/api/character/?page="+page)
             .then( (response) => {
                 setCharacters(response.data.results)
                 console.log("Data obtained")
             })
+    }
+
+
+    useEffect(() => {
+        //Asymmetric call. Order not save
+        // only does then, when get is finished. Continues with the rest before
+        getCharacters();
         //IMPORTANT: OTHERWISE ENDLESS LOPE
         }, [page])
 
@@ -69,7 +72,6 @@ function App() {
     }
 
 
-
   return (
     <div className="App">
         <header className="TitleWrapper"> <h1> Rick And Morty Character Gallery </h1> </header>
@@ -78,7 +80,7 @@ function App() {
 
         <Routes>
             <Route path={"/"} element={
-                <div className={"MainPage"}>
+                <div className={"MainPageWrapper"}>
                     <div className="FilterWrapper">
 
                         <div>
@@ -126,11 +128,10 @@ function App() {
 
                 </div>
             }/>
-            <Route path={"/:name"} element={ <CharacterDetails characters={characters} /> } />
+            <Route path={"/:id"} element={ <CharacterDetails characters={characters} /> } />
         </Routes>
 
     </div>
-
 
   );
 }

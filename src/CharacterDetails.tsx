@@ -1,21 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Character} from "./Character";
 import {useParams} from "react-router-dom";
 import CharacterCard from "./CharacterCard";
 type Props = {
-    characters:Character[]
+    characters:Character[],
 }
 
 function CharacterDetails(props:Props) {
 
     const params = useParams();
-    const name:string | undefined = params.name;
+    const id:string | undefined = params.id;
 
-    const foundCharacter: Character | undefined =props.characters.find(currentChar => currentChar.name === name);
+    const foundCharacter = props.characters.find(currentChar => currentChar.id.toString() === id)
 
     return (
         <div>
-            <CharacterCard character={foundCharacter !== undefined ? foundCharacter : props.characters[0]}/>
+            {foundCharacter !== undefined
+                ? <CharacterCard character={foundCharacter} />
+                : <></>}
         </div>
     );
 }
